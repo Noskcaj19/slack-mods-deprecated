@@ -22,7 +22,6 @@ def verify_install_path(path):
         return False
     return True
 
-
 def main():
     install_path = get_slack_install_path()
     if not verify_install_path(install_path):
@@ -46,32 +45,36 @@ launch_script = """
 
 ////SLACK MODS START////
 // ** slack-plugins ** https://github.com/Noskcaj19/slack-mods
-const fs = require('fs');
-
-const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_lib.js'
-const modsPath = path.join(require('os').homedir(), '.slack_mods')
-document.addEventListener('DOMContentLoaded', function() {
-  $("<script />", {src: stdPath}).appendTo('head');
-
-  fs.readdir(modsPath, (err, files) => {
-    files.forEach(file => {
-      if (path.extname(file) === ".js") {
-        fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
-          if (e) {
-            console.err(e); 
-          } else {
-            try {
-              eval(r)
-            } catch(e) {
-              console.error(e)
-            } 
-            console.info(`Loaded mod from: ${path.join(modsPath, file)}`);
-          };
-        })
-      };
+try {
+  const fs = require('fs');
+  
+  const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_lib.js'
+  const modsPath = path.join(require('os').homedir(), '.slack_mods')
+  document.addEventListener('DOMContentLoaded', function() {
+    $("<script />", {src: stdPath}).appendTo('head');
+  
+    fs.readdir(modsPath, (err, files) => {
+      files.forEach(file => {
+        if (path.extname(file) === ".js") {
+          fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
+            if (e) {
+              console.err(e); 
+            } else {
+              try {
+                eval(r)
+              } catch(e) {
+                console.error(e)
+              } 
+              console.info(`Loaded mod from: ${path.join(modsPath, file)}`);
+            };
+          })
+        };
+      });
     });
   });
-});
+} catch (e) {
+    console.error(e);
+}
 ////SLACK PLUGINS END////"""
 
 
