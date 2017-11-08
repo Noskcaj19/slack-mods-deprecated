@@ -48,7 +48,7 @@ launch_script = """
 // ** slack-plugins ** https://github.com/Noskcaj19/slack-mods
 const fs = require('fs');
 
-const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_library.js'
+const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_lib.js'
 const modsPath = path.join(require('os').homedir(), '.slack_mods')
 document.addEventListener('DOMContentLoaded', function() {
   $("<script />", {src: stdPath}).appendTo('head');
