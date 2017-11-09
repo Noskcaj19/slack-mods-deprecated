@@ -75,7 +75,7 @@ try {
 } catch (e) {
     console.error(e);
 }
-////SLACK PLUGINS END////"""
+////SLACK MODS END////"""
 
 
 if __name__ == '__main__':
