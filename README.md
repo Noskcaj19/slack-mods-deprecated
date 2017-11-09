@@ -8,6 +8,10 @@ Some example mods are included in the examples folder, such as LaTeX rendering
 
 # Install
 
-Just run `install.py`
+Just run `python install.py`
 
-Sadly, it will be uninstalled on every Slack update
+Unfortunately, it will be uninstalled on every Slack update
+
+# Uninstall
+
+To uninstall, just run `python install.py -u`
