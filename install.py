@@ -114,14 +114,14 @@ try {
         if (path.extname(file) === ".js") {
           fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
             if (e) {
-              console.err(e); 
+              TS.err(e); 
             } else {
               try {
                 eval(r)
               } catch(e) {
-                console.error(e)
+                TS.error(e)
               } 
-              console.info(`Loaded mod from: ${path.join(modsPath, file)}`);
+              TS.info(`Loaded mod from: ${path.join(modsPath, file)}`);
             };
           })
         };
@@ -129,7 +129,7 @@ try {
     });
   });
 } catch (e) {
-    console.error(e);
+    TS.error(e);
 }
 ////SLACK MODS END////"""
 
