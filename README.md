@@ -4,6 +4,8 @@
 
 Any Javascript files in `~/.slack_mods/` will be injected into the main view at startup
 
+Also, any CSS files `~/.slack_mods/` will be loaded at startup
+
 Some example mods are included in the examples folder, such as LaTeX rendering
 
 # Install
