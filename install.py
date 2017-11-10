@@ -100,7 +100,7 @@ def main():
 preload_script = """
 
 ////SLACK MODS START////
-// ** slack-plugins ** https://github.com/Noskcaj19/slack-mods
+// ** slack-plugins v0.0.5 ** https://github.com/Noskcaj19/slack-mods
 try {
   const fs = require('fs');
   
@@ -111,19 +111,29 @@ try {
   
     fs.readdir(modsPath, (err, files) => {
       files.forEach(file => {
-        if (path.extname(file) === ".js") {
+        var ext = path.extname(file);
+        if (ext === ".js") {
           fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
             if (e) {
-              TS.err(e); 
+              TS.error(e); 
             } else {
               try {
-                eval(r)
+                eval(r);
               } catch(e) {
-                TS.error(e)
+                TS.error(e);
               } 
               TS.info(`Loaded mod from: ${path.join(modsPath, file)}`);
             };
-          })
+          });
+        } else if (ext === ".css") {
+          fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
+            if (e) {
+              TS.error(e);
+            } else {
+              $("<style />", {text: r}).appendTo('head');
+              TS.info(`Loaded style mod from: ${path.join(modsPath, file)}`);
+            };
+          });
         };
       });
     });
