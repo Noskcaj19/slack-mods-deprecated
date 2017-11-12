@@ -7,15 +7,8 @@
  * @param {Object} opts - Object with various options for the function
  */
 function addCommand(cmd, opts) {
-  TS.cmd_handlers[cmd] = {
-    localized: opts.localized || null,
-    type: "client",
-    autocomplete: opts.autocomplete || true,
-    alias_of: opts.alias_of || null,
-    aliases: opts.aliases || null,
-    desc: opts.desc || null,
-    func: opts.func || function() {}
-  };
+  opts.type = opts.type || "client"
+  TS.cmd_handlers[cmd] = opts;
 }
 
 /**
