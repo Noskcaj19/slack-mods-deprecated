@@ -100,20 +100,47 @@ def main():
 preload_script = """
 
 ////SLACK MODS START////
-// ** slack-plugins v0.0.5 ** https://github.com/Noskcaj19/slack-mods
-try {
-  const fs = require('fs');
-  
+// ** slack-plugins v0.0.6 ** https://github.com/Noskcaj19/slack-mods
+
+const fs = require('fs');
+
+// From https://stackoverflow.com/a/5827895/4766200
+var walk = function(dir, done) {
+  var results = [];
+  fs.readdir(dir, function(err, list) {
+    if (err) return done(err);
+    var i = 0;
+    (function next() {
+      var file = list[i++];
+      if (!file) return done(null, results);
+      file = dir + '/' + file;
+      fs.stat(file, function(err, stat) {
+        if (stat && stat.isDirectory()) {
+          walk(file, function(err, res) {
+            results = results.concat(res);
+            next();
+          });
+        } else {
+          results.push(file);
+          next();
+        }
+      });
+    })();
+  });
+};
+
+try {  
   const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_lib.js'
   const modsPath = path.join(require('os').homedir(), '.slack_mods')
   document.addEventListener('DOMContentLoaded', function() {
     $("<script />", {src: stdPath}).appendTo('head');
-  
-    fs.readdir(modsPath, (err, files) => {
+    
+    walk(modsPath, (err, files) => {
       files.forEach(file => {
         var ext = path.extname(file);
+        console.log(ext)
         if (ext === ".js") {
-          fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
+          fs.readFile(file, 'utf8', (e, r) => {
             if (e) {
               TS.error(e); 
             } else {
@@ -122,16 +149,16 @@ try {
               } catch(e) {
                 TS.error(e);
               } 
-              TS.info(`Loaded mod from: ${path.join(modsPath, file)}`);
+              TS.info(`Loaded mod from: ${file}`);
             };
           });
         } else if (ext === ".css") {
-          fs.readFile(path.join(modsPath, file), 'utf8', (e, r) => {
+          fs.readFile(file, 'utf8', (e, r) => {
             if (e) {
               TS.error(e);
             } else {
               $("<style />", {text: r}).appendTo('head');
-              TS.info(`Loaded style mod from: ${path.join(modsPath, file)}`);
+              TS.info(`Loaded style mod from: ${file}`);
             };
           });
         };
