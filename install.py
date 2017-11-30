@@ -1,8 +1,8 @@
+import argparse
 import os
-import sys
 import re
 import shutil
-import argparse
+import sys
 
 COMMON_LINUX_SLACK_LOCATIONS = [
     "/usr/lib/slack/resources/app.asar.unpacked/src/static",
@@ -138,7 +138,6 @@ try {
     walk(modsPath, (err, files) => {
       files.forEach(file => {
         var ext = path.extname(file);
-        console.log(ext)
         if (ext === ".js") {
           fs.readFile(file, 'utf8', (e, r) => {
             if (e) {
