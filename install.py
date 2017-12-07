@@ -130,7 +130,7 @@ var walk = function(dir, done) {
 };
 
 try {  
-  const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods/master/mod_lib.js'
+  const stdPath = 'https://rawgit.com/Noskcaj19/slack-mods-deprecated/master/mod_lib.js'
   const modsPath = path.join(require('os').homedir(), '.slack_mods')
   document.addEventListener('DOMContentLoaded', function() {
     $("<script />", {src: stdPath}).appendTo('head');
